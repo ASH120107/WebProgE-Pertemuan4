@@ -9,6 +9,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>Hello, world!</title>
+
+    <style>
+        .alert-success{
+            transirion:all 0.5s ease-in-out;
+            transform: translateY(-10px);
+        } 
+        .alert-success.d-none{
+            opacity: 0;
+        } 
+        .alert-success:not(.d-none){
+            opacity: 1;
+            transform: translateY(0);
+        } 
+    </style>
   </head>
   <body>
     
@@ -20,27 +34,73 @@
         <div class="mb-3">
             <label class="form-label">Nama Lengkap</label>
             <input type="text" id="nama" class="form-control">
+            <div class="invalid-feedback">Nama Lengkap masih kososng</div>
         </div>
     <div class="mb-3">
             <label class="form-label">NIM</label>
-            <input type="text" id="nama" class="form-control">
+            <input type="text" id="nim" class="form-control">
+            <div class="invalid-feedback">NIM masih kososng</div>
         </div>
     <div class="mb-3">
             <label class="form-label">Prodi</label>
-            <input type="text" id="nama" class="form-control">
-        </div>    
+            <input type="text" id="prodi" class="form-control">
+            <div class="invalid-feedback">Prodi masih kososng</div>
+        </div>
+
+        <button class="btn btn-primary">Kirim Data</button>    
     </form>
     
-    <div calss="alret alret-success mt-4 " role="alret">
-        <h3 class="alret-heading mb-3">Data Berhasil Di Kirim</h3>
+    <div class="alert alert-success mt-4 d-none " role="alert">
+        <h3 class="alert-heading mb-3">Data Berhasil Di Kirim</h3>
         <p class="mb-1">Nama: <span id="resNama"></span></p>
-        <p class="mb-1">Prodi:</p><span id="resProdi"></span>
+        <p class="mb-1">Prodi:<span id="resProdi"></span></p>
 </div>
 
-    
-    <button class="btn btn-primary">Kirim Data</button>
-    
-    
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+    function tampildata(event){
+        event.preventDefault();
 
+        const nm = document.getElementById("nama");
+        const idn = document.getElementById("nim");
+        const prd = document.getElementById("prodi");
+
+        console.log("nama dari form "+prd);
+      
+
+        //validasi
+        let isValid = true;
+
+        nm.classList.remove('is-invalid');
+        idn.classList.remove('is-invalid');
+        prd.classList.remove('is-invalid');
+        if(nm.value.trim() === '' ){
+            nm.classList.add('is-invalid');
+            isValid = false;
+        }
+        if(idn.value.trim() === '' ){
+            idn.classList.add('is-invalid');
+            isValid = false;
+
+        }if(prd.value.trim() === '' ){
+            prd.classList.add('is-invalid');
+            isValid = false;
+
+        }
+
+        if(!isValid){
+            return;
+        }
+
+        document.getElementById("resNama").innerText = nm.value+"("+idn.value+")"
+        document.getElementById("resProdi").innerText = prd.value;
+
+        const alertBox = document.querySelector('.alert-success');
+        alertBox.classList.remove('d-none');
+
+    }
+    
+    </script>
   </body>
 </html>
